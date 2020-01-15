@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-# 基于redis
+# 不带redis
 from gevent import socket
 import gevent
 from gevent import monkey
 monkey.patch_socket()
-import redis
 from dnslib import *
 
 
@@ -19,23 +18,17 @@ s = socket.socket(AF_INET, SOCK_DGRAM)
 s.bind(('', 53))
 
 
-def dns_handler(s, peer, data,r):
+def dns_handler(s, peer, data):
     request = DNSRecord.parse(data)
     id = request.header.id
     qname = request.q.qname
     qtype = request.q.qtype
-    print r.get('DNS:PASSTHRU:A:google.com')
-    IP = r.get(A_RECORD_PREFIX % qname)
-    TXT = r.get(TXT_RECORD_PREFIX % qname)
-    CNAME = r.get(CNAME_RECORD_PREFIX % qname)
-
-    if not IP:
-        try:
-            IP = socket.gethostbyname(str(qname))
-        except Exception, e:
-            print (e)
-            print ('Host not found')
-            IP = '0.0.0.0'
+    try:
+        IP = socket.gethostbyname(str(qname))
+    except Exception, e:
+        print (e)
+        print ('Host not found')
+        IP = '0.0.0.0'
 
     print ("Request (%s): %r (%s) - Response: %s" % (str(peer), qname.label,
                                                        QTYPE[qtype], IP))
@@ -53,13 +46,12 @@ def dns_handler(s, peer, data,r):
     s.sendto(reply.pack(), peer)
 
 
-def main():
-    r = redis.Redis(host='127.0.0.1', port=6379, db=0)
+def tinydns():
     while True:
         data, peer = s.recvfrom(8192)
-        gevent.spawn(dns_handler, s, peer, data,r)
+        gevent.spawn(dns_handler, s, peer, data)
 
 
 
 if __name__ == '__main__':
-    main()
+    tinydns()
