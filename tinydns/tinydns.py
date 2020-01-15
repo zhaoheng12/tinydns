@@ -6,7 +6,6 @@ from gevent import monkey
 monkey.patch_socket()
 from dnslib import *
 
-
 A_RECORD_PREFIX = 'DNS:PASSTHRU:A:%s'
 TXT_RECORD_PREFIX = 'DNS:PASSTHRU:TXT:%s'
 CNAME_RECORD_PREFIX = 'DNS:PASSTHRU:CNAME:%s'

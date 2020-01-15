@@ -24,7 +24,7 @@ def dns_handler(s, peer, data,r):
     id = request.header.id
     qname = request.q.qname
     qtype = request.q.qtype
-    print r.get('DNS:PASSTHRU:A:google.com')
+    print (r.get('DNS:PASSTHRU:A:google.com'))
     IP = r.get(A_RECORD_PREFIX % qname)
     TXT = r.get(TXT_RECORD_PREFIX % qname)
     CNAME = r.get(CNAME_RECORD_PREFIX % qname)
