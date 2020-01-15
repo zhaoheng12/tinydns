@@ -12,17 +12,16 @@ extras_require = {
 
 setup(
     name='tinydns',
-    version=__import__('tinydns').__version__,
+    packages=find_packages(),
+    version = '0.0.1',
     description='this project is a tinydns automaton implementation by python',
     long_description=long_description,
+    long_description_content_type="text/markdown",
+    url='https://github.com/zhaoheng12/tinydns/',
     author='zhaohengping',
     author_email='zhaohengping@gongchang.com',
-    url='https://github.com/zhaoheng12/tinydns/',
-    packages=find_packages(),
     extras_require=extras_require,
-    package_data={
-        'tinydns': [
-        ],
-    },
-
+package_data={
+        '': ['*.rst'],
+    }
 )
