@@ -1,10 +1,25 @@
 import os
+import sys
 from setuptools import setup, find_packages
 
 
 with open("README.md", "r") as f:
     long_description = f.read()
 
+
+def patch_bin_path(cmd, conf):
+
+    bin_name = conf.get('bin_name')
+
+    if not os.path.isabs(bin_name):
+        print('Patching "bin_name" to properly install_scripts dir')
+        try:
+            if not os.path.exists(cmd.install_scripts):
+                os.makedirs(cmd.install_scripts)
+            conf.set('bin_name',
+                     os.path.join(cmd.install_scripts, conf.get('bin_name')))
+        except Exception:
+            conf.set('bin_name', sys.prefix + '/bin/' + bin_name)
 
 
 setup(
