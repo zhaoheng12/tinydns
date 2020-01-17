@@ -18,7 +18,7 @@ setup(
     package_dir = {'tinydns.conf':'etc'},
     classifiers=[
           "Programming Language :: Python",
-          "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 2.7.15",
       ],
     install_requires = ["gevent","dnslib"],
     entry_points = {
