@@ -43,7 +43,7 @@ def dns_handler(s, peer, data):
 
 def main():
     parser = argparse.ArgumentParser(description='Run some watchers.')
-    parser.add_argument('-c', action='store_true',default='/etc/tinydns.conf',
+    parser.add_argument('-c', action='store_true',default='../tinydns.conf',
                         help="Run service command tinydns -c /etc/tinydns.conf")
     args = parser.parse_args()
     while True:
