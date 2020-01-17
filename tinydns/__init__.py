@@ -19,8 +19,9 @@ CNAME_RECORD_PREFIX = cf.get('dns','CNAME_RECORD_PREFIX')
 AF_INET = cf.get('gevent','AF_INET')
 SOCK_DGRAM = cf.get('gevent','AF_INET')
 s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
-port = int(cf.get('dns','port'))
-s.bind(('', port))
+port = cf.get('dns','port')
+s.bind(('', int(port)))
+
 
 def dns_handler(s, peer, data,r):
     request = DNSRecord.parse(data)
