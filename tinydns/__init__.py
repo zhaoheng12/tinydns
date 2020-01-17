@@ -10,13 +10,10 @@ cf = ConfigParser.ConfigParser()
 # 读取配置文件
 # /etc/tinydns.conf
 cf.read("../tinydns.conf")
-# AF_INET = cf.get('gevent_dns','AF_INET')
-# SOCK_DGRAM = cf.get('gevent_dns','AF_INET')
-# port = cf.get('gevent_dns','port')
+AF_INET = cf.get('gevent_dns','AF_INET')
+SOCK_DGRAM = cf.get('gevent_dns','AF_INET')
+port = cf.get('gevent_dns','port')
 
-AF_INET = 2
-SOCK_DGRAM = 2
-port = 53
 s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
 s.bind(('', int(port)))
 
@@ -46,7 +43,7 @@ def dns_handler(s, peer, data):
 
 def main():
     parser = argparse.ArgumentParser(description='Run some watchers.')
-    parser.add_argument('-c', type=str,default='../tinydns.conf',
+    parser.add_argument('-c', action='store_true',default='/etc/tinydns.conf',
                         help="Run service command tinydns -c /etc/tinydns.conf")
     args = parser.parse_args()
     while True:
