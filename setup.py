@@ -12,8 +12,8 @@ setup(
     url='https://github.com/zhaoheng12/tinydns/',
     author='zhaohengping',
     author_email='zhaohengping@gongchang.com',
-    # data_files=[('etc', ['tinydns.conf'])],
-    # package_dir={'':'etc'},
+    data_files=[('etc', ['tinydns.conf'])],
+    # package_dir={'':'tinydns'},
     classifiers=[
           "Programming Language :: Python",
           "Programming Language :: Python :: 2.7.15",
