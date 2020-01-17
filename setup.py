@@ -13,7 +13,7 @@ setup(
     author='zhaohengping',
     author_email='zhaohengping@gongchang.com',
     # data_files=[('etc', ['tinydns.conf'])],
-    # package_dir={'tinydns.conf':'etc'},
+    # package_dir={'':'etc'},
     classifiers=[
           "Programming Language :: Python",
           "Programming Language :: Python :: 2.7.15",

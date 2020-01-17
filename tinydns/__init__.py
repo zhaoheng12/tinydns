@@ -5,19 +5,21 @@ import gevent
 from gevent import monkey
 monkey.patch_socket()
 from dnslib import *
+# 读取配置文件
 import ConfigParser
 cf = ConfigParser.ConfigParser()
-# 读取配置文件
-# /etc/tinydns.conf
-cf.read("../tinydns.conf")
-AF_INET = cf.get('gevent_dns','AF_INET')
-SOCK_DGRAM = cf.get('gevent_dns','AF_INET')
-port = cf.get('gevent_dns','port')
+current_path = os.path.abspath('.')
+now_cig = os.path.dirname(current_path)
+con_cig = os.path.join(now_cig + "/tinydns.conf")
+cf.read(con_cig)
+AF_INET = cf.get('gevent_dns', 'AF_INET')
+SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
+port = cf.get('gevent_dns', 'port')
 
 s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
 s.bind(('', int(port)))
 
-def dns_handler(s, peer, data):
+def dns_handler(s,peer,data):
     request = DNSRecord.parse(data)
     id = request.header.id
     qname = request.q.qname
@@ -43,7 +45,7 @@ def dns_handler(s, peer, data):
 
 def main():
     parser = argparse.ArgumentParser(description='Run some watchers.')
-    parser.add_argument('-c', action='store_true',default='../tinydns.conf',
+    parser.add_argument('-c', action='store_true',default='tinydns.conf',
                         help="Run service command tinydns -c /etc/tinydns.conf")
     args = parser.parse_args()
     while True:
