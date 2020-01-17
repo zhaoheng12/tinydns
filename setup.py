@@ -20,7 +20,7 @@ setup(
           "Programming Language :: Python",
           "Programming Language :: Python :: 2.7",
       ],
-    install_requires = ["gevent","dnslib","redis"],
+    install_requires = ["gevent","dnslib"],
     entry_points = {
                   'console_scripts': [
                       'tinydns = tinydns.__init__:main',
