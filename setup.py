@@ -1,11 +1,13 @@
 import os
 import sys
 from setuptools import setup, find_packages
+from setuptools.command.install import install
+from setuptools.command.install_lib import install_lib
+from setuptools.command.build_ext import build_ext
 
 
 with open("README.md", "r") as f:
     long_description = f.read()
-
 
 def patch_bin_path(cmd, conf):
 
@@ -32,6 +34,14 @@ setup(
     url='https://github.com/zhaoheng12/tinydns/',
     author='zhaohengping',
     author_email='zhaohengping@gongchang.com',
+    data_files =['tinydns.conf'],
+    package_dir = {'tinydns.conf':'etc'},
+    install_requires = ["gevent","dnslib","redis"],
+    entry_points = {
+                  'console_scripts': [
+                      'tinydns = tinydns.__init__:tinydns',
+                  ],
+              },
     package_data={
             '': ['*.rst'],
         }
