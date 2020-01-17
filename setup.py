@@ -16,6 +16,10 @@ setup(
     author_email='zhaohengping@gongchang.com',
     data_files =['tinydns.conf'],
     package_dir = {'tinydns.conf':'etc'},
+    classifiers=[
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2.7",
+      ],
     install_requires = ["gevent","dnslib","redis"],
     entry_points = {
                   'console_scripts': [

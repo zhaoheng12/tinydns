@@ -112,7 +112,7 @@ def daemonize():
 
 def main():
     parser = argparse.ArgumentParser(description='Run some watchers.')
-    parser.add_argument('--c', dest='daemonize', action='store_true',
+    parser.add_argument('-c', dest='daemonize', action='store_true',
                         help="Start tinydns in the background. Not supported "
                              "on Windows")
     args = parser.parse_args()
