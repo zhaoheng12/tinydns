@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+from pkg_resources import Requirement, resource_filename
 with open("README.md", "r") as f:
     long_description = f.read()
 
@@ -12,7 +13,9 @@ setup(
     url='https://github.com/zhaoheng12/tinydns/',
     author='zhaohengping',
     author_email='zhaohengping@gongchang.com',
-    data_files=[('etc', ['tinydns.conf'])],
+    data_files=[('etc', ['etc/tinydns.conf',])],
+    include_package_data = True,
+    filename = resource_filename(Requirement.parse("tinydns"),"tinydns.conf"),
     # package_dir={'':'tinydns'},
     classifiers=[
           "Programming Language :: Python",

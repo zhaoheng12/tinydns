@@ -8,18 +8,18 @@ from dnslib import *
 # 读取配置文件
 import ConfigParser
 cf = ConfigParser.ConfigParser()
-current_path = os.path.abspath('.')
+current_path = os.path.abspath(__file__)
 now_cig = os.path.dirname(current_path)
 con_cig = os.path.join(now_cig + "/tinydns.conf")
 cf.read(con_cig)
-AF_INET = cf.get('gevent_dns', 'AF_INET')
-SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
-port = cf.get('gevent_dns', 'port')
+AF_INET = cf.get('gevent_dns','AF_INET')
+SOCK_DGRAM = cf.get('gevent_dns','AF_INET')
+port = cf.get('gevent_dns','port')
 
 s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
 s.bind(('', int(port)))
 
-def dns_handler(s,peer,data):
+def dns_handler(s, peer, data):
     request = DNSRecord.parse(data)
     id = request.header.id
     qname = request.q.qname
