@@ -13,14 +13,13 @@ cf = ConfigParser.ConfigParser()
 # 读取配置文件
 # /etc/tinydns.conf
 cf.read("../tinydns.conf")
-A_RECORD_PREFIX = cf.get('dns','A_RECORD_PREFIX')
-TXT_RECORD_PREFIX = cf.get('dns','TXT_RECORD_PREFIX')
-CNAME_RECORD_PREFIX = cf.get('dns','CNAME_RECORD_PREFIX')
-AF_INET = cf.get('gevent','AF_INET')
-SOCK_DGRAM = cf.get('gevent','AF_INET')
+A_RECORD_PREFIX = cf.get('gevent_dns','A_RECORD_PREFIX')
+TXT_RECORD_PREFIX = cf.get('gevent_dns','TXT_RECORD_PREFIX')
+CNAME_RECORD_PREFIX = cf.get('gevent_dns','CNAME_RECORD_PREFIX')
+AF_INET = cf.get('gevent_dns','AF_INET')
+SOCK_DGRAM = cf.get('gevent_dns','AF_INET')
 s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
-port = cf.get('dns','port')
-s.bind(('', int(port)))
+s.bind(('', 53))
 
 
 def dns_handler(s, peer, data,r):
