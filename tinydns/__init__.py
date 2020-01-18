@@ -18,7 +18,7 @@ def dns_handler(s, peer, data):
         print e
         print ('Host not found')
         IP = '0.0.0.0'
-    print ("Request (%s): %r (%s) - Response: %s" % (str(peer), qname.label,QTYPE[qtype], IP))
+    print ("request:%s:%s -- response: %s" % (str(peer), qname.label, IP))
     reply = DNSRecord(DNSHeader(id=id, qr=1, aa=1, ra=1), q=request.q)
     if qtype == QTYPE.A:
         reply.add_answer(RR(qname, qtype, rdata=A(IP)))
