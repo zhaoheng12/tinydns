@@ -38,7 +38,7 @@ def main():
         parser.add_argument('filename',help='Please enter a file name')
         args = parser.parse_args()
         cf = ConfigParser.ConfigParser()
-        current_path = os.path.abspath(__file__)
+        current_path = os.path.abspath('.')
         now_cig = os.path.dirname(current_path)
         con_cig = os.path.join(now_cig + args.filename)
         cf.read(con_cig)
