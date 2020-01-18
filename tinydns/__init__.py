@@ -5,19 +5,7 @@ import gevent
 from gevent import monkey
 monkey.patch_socket()
 from dnslib import *
-# 读取配置文件
 import ConfigParser
-cf = ConfigParser.ConfigParser()
-current_path = os.path.abspath(__file__)
-now_cig = os.path.dirname(current_path)
-con_cig = os.path.join(now_cig + "/tinydns.conf")
-cf.read(con_cig)
-AF_INET = cf.get('gevent_dns','AF_INET')
-SOCK_DGRAM = cf.get('gevent_dns','AF_INET')
-port = cf.get('gevent_dns','port')
-
-s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
-s.bind(('', int(port)))
 
 def dns_handler(s, peer, data):
     request = DNSRecord.parse(data)
@@ -44,13 +32,27 @@ def dns_handler(s, peer, data):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Run some watchers.')
-    parser.add_argument('-c', action='store_true',default='tinydns.conf',
-                        help="Run service command tinydns -c /etc/tinydns.conf")
-    args = parser.parse_args()
-    while True:
-        data, peer = s.recvfrom(8192)
-        gevent.spawn(dns_handler, s, peer, data)
+    try:
+        parser = argparse.ArgumentParser(description='Run some watchers.')
+        parser.add_argument('-c', action='store_true',help="Run service command tinydns -c /etc/tinydns.conf")
+        parser.add_argument('filename',help='Please enter a file name')
+        args = parser.parse_args()
+        cf = ConfigParser.ConfigParser()
+        current_path = os.path.abspath(__file__)
+        now_cig = os.path.dirname(current_path)
+        con_cig = os.path.join(now_cig + args.filename)
+        cf.read(con_cig)
+        AF_INET = cf.get('gevent_dns', 'AF_INET')
+        SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
+        port = cf.get('gevent_dns', 'port')
+        s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
+        s.bind(('', int(port)))
+    except Exception as e:
+        print e
+    else:
+        while True:
+            data, peer = s.recvfrom(8192)
+            gevent.spawn(dns_handler, s, peer, data)
 
 
 if __name__ == '__main__':

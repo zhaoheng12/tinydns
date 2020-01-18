@@ -13,9 +13,8 @@ setup(
     url='https://github.com/zhaoheng12/tinydns/',
     author='zhaohengping',
     author_email='zhaohengping@gongchang.com',
-    data_files=[('etc', ['etc/tinydns.conf',])],
-    include_package_data = True,
-    filename = resource_filename(Requirement.parse("tinydns"),"tinydns.conf"),
+    # data_files=[('tinydns', ['etc/tinydns.conf',])],
+    # filename = resource_filename(Requirement.parse("tinydns"),"tinydns.conf"),
     # package_dir={'':'tinydns'},
     classifiers=[
           "Programming Language :: Python",
