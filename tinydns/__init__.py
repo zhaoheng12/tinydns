@@ -37,10 +37,10 @@ def main():
         parser.add_argument('-c', action='store_true',help="Run service command tinydns -c /etc/tinydns.conf")
         parser.add_argument('filename',help='Please enter a file name')
         args = parser.parse_args()
+        # current_path = os.path.abspath('/etc')
+        # now_cig = os.path.dirname(current_path)
+        con_cig = os.path.join(args.filename)
         cf = ConfigParser.ConfigParser()
-        current_path = os.path.abspath('.')
-        now_cig = os.path.dirname(current_path)
-        con_cig = os.path.join(now_cig + args.filename)
         cf.read(con_cig)
         AF_INET = cf.get('gevent_dns', 'AF_INET')
         SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
@@ -49,6 +49,7 @@ def main():
         s.bind(('', int(port)))
     except Exception as e:
         print e
+        print ('Switch root permissions run service command tinydns -c /etc/tinydns.conf')
     else:
         while True:
             data, peer = s.recvfrom(8192)
