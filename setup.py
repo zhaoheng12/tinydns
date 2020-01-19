@@ -19,9 +19,11 @@ setup(
     author='zhaohengping',
     author_email='18438697706@163.com',
     data_files = [('/etc', ['tinydns.conf'])],
-    classifiers=[
-          "Programming Language :: Python :: 3.7.6",
-      ],
+    classifiers = [
+        "Programming Language :: Python :: 3" ,
+        "License :: OSI Approved :: MIT License" ,
+        "Operating System :: OS Independent" ,
+    ],
     install_requires=["gevent","dnslib"],
     entry_points={
                   'console_scripts': [
