@@ -20,8 +20,7 @@ setup(
     author_email='18438697706@163.com',
     data_files = [('/etc', ['tinydns.conf'])],
     classifiers=[
-          "Programming Language :: Python",
-          "Programming Language :: Python :: 2.7.15",
+          "Programming Language :: Python :: 3.7.6",
       ],
     install_requires=["gevent","dnslib"],
     entry_points={
