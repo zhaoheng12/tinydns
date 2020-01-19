@@ -9,6 +9,8 @@ try:
     import ConfigParser
 except:
     import configparser
+import shutil
+from pkg_resources import Requirement, resource_filename
 
 
 def dns_handler(s, peer, data):
@@ -35,6 +37,12 @@ def dns_handler(s, peer, data):
 
 
 def main():
+    filename = resource_filename(Requirement.parse("tinydns"), "etc/tinydns.conf")
+    target = '/etc/tinydns.conf'
+    try:
+        shutil.copyfile(filename, target)
+    except IOError as e:
+        print("Unable to copy file. %s" % e)
     try:
         parser = argparse.ArgumentParser(description='Run some watchers.')
         parser.add_argument('-c', action='store_true',help="Run service command tinydns -c /etc/tinydns.conf")

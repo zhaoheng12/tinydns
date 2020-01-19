@@ -11,7 +11,7 @@ with open("README.md", "r") as f:
 setup(
     name="tinydns",
     packages=find_packages(),
-    version='0.0.1',
+    version='0.0.2',
     description='this project is a tinydns automaton implementation by python',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -35,10 +35,3 @@ setup(
         }
 
 )
-
-filename = resource_filename(Requirement.parse("tinydns"),"etc/tinydns.conf")
-target = '/etc/tinydns.conf'
-try:
-   shutil.copyfile(filename, target)
-except IOError as e:
-   print("Unable to copy file. %s" % e)
