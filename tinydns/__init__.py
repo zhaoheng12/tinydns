@@ -5,7 +5,11 @@ import gevent
 from gevent import monkey
 monkey.patch_socket()
 from dnslib import *
-import ConfigParser
+try:
+    import ConfigParser
+except:
+    import configparser
+
 
 def dns_handler(s, peer, data):
     request = DNSRecord.parse(data)
@@ -15,7 +19,6 @@ def dns_handler(s, peer, data):
     try:
         IP = socket.gethostbyname(str(qname))
     except Exception as e:
-        print e
         print ('Host not found')
         IP = '0.0.0.0'
     print ("request:%s:%s -- response: %s" % (str(peer), qname.label, IP))
@@ -40,7 +43,11 @@ def main():
         # current_path = os.path.abspath('/etc')
         # now_cig = os.path.dirname(current_path)
         con_cig = os.path.join(args.filename)
-        cf = ConfigParser.ConfigParser()
+        try:
+            cf = ConfigParser.ConfigParser()
+        except:
+            cf = configparser.ConfigParser()
+
         cf.read(con_cig)
         AF_INET = cf.get('gevent_dns', 'AF_INET')
         SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
@@ -48,7 +55,7 @@ def main():
         s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
         s.bind(('', int(port)))
     except Exception as e:
-        print e
+        print (e)
         print ('Switch root permissions run service command tinydns -c /etc/tinydns.conf')
     else:
         while True:
