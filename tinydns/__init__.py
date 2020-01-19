@@ -46,6 +46,7 @@ def main():
     try:
         parser = argparse.ArgumentParser(description='Run some watchers.')
         parser.add_argument('-c', action='store_true',help="Run service command tinydns -c /etc/tinydns.conf")
+        parser.add_argument('-h',help="Need to run tinydns -c tinydns.conf under the configuration file")
         parser.add_argument('filename',help='Please enter a file name')
         args = parser.parse_args()
         # current_path = os.path.abspath('/etc')
@@ -55,7 +56,6 @@ def main():
             cf = ConfigParser.ConfigParser()
         except:
             cf = configparser.ConfigParser()
-
         cf.read(con_cig)
         AF_INET = cf.get('gevent_dns', 'AF_INET')
         SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
@@ -63,8 +63,8 @@ def main():
         s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
         s.bind(('', int(port)))
     except Exception as e:
-        print (e)
-        print ('Switch root permissions run service command tinydns -c /etc/tinydns.conf')
+        if 'No section' in str(e):
+            print ('tinydns.conf does not exist, please confirm the file path or tinydns --help')
     else:
         while True:
             data, peer = s.recvfrom(8192)
