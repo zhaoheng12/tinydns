@@ -29,6 +29,9 @@ setup(
                       'tinydns=tinydns.__init__:main',
                   ],
               },
+    package_data={
+            '': ['*.rst'],
+        }
 
 )
 
