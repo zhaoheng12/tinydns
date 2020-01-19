@@ -17,7 +17,7 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/zhaoheng12/tinydns/',
     author='zhaohengping',
-    author_email='zhaohengping@gongchang.com',
+    author_email='18438697706@163.com',
     data_files = [('/etc', ['tinydns.conf'])],
     classifiers=[
           "Programming Language :: Python",
