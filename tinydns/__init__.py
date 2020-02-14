@@ -46,7 +46,7 @@ def main():
     try:
         parser = argparse.ArgumentParser(description='Run some watchers.')
         parser.add_argument('-c', action='store_true',help="Run service command tinydns -c /etc/tinydns.conf")
-        parser.add_argument('-h',help="Need to run tinydns -c tinydns.conf under the configuration file")
+        parser.add_argument('-h',help="Requires configuration in /etc/tinydns.conf [gevent_dns]AF_INET = 2 SOCK_DGRAM = 2 port = 53")
         parser.add_argument('filename',help='Please enter a file name')
         args = parser.parse_args()
         # current_path = os.path.abspath('/etc')
@@ -57,9 +57,14 @@ def main():
         except:
             cf = configparser.ConfigParser()
         cf.read(con_cig)
-        AF_INET = cf.get('gevent_dns', 'AF_INET')
-        SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
-        port = cf.get('gevent_dns', 'port')
+        try:
+            AF_INET = cf.get('gevent_dns', 'AF_INET')
+            SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
+            port = cf.get('gevent_dns', 'port')
+        except:
+            AF_INET = 2
+            SOCK_DGRAM = 2
+            port = 53
         s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
         s.bind(('', int(port)))
     except Exception as e:
