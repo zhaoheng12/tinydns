@@ -11,7 +11,7 @@ with open("README.md", "r") as f:
 setup(
     name="tinydns",
     packages=find_packages(),
-    version='0.0.5',
+    version='0.0.6',
     description='this project is a tinydns automaton implementation by python',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -19,11 +19,6 @@ setup(
     author='zhaohengping',
     author_email='18438697706@163.com',
     data_files = [('/etc', ['tinydns.conf'])],
-    classifiers = [
-        "Programming Language :: Python :: 3" ,
-        "License :: OSI Approved :: MIT License" ,
-        "Operating System :: OS Independent" ,
-    ],
     install_requires=["gevent","dnslib"],
     entry_points={
                   'console_scripts': [
