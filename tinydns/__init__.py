@@ -37,16 +37,16 @@ def dns_handler(s, peer, data):
 
 
 def main():
-    filename = resource_filename(Requirement.parse("tinydns"), "etc/tinydns.conf")
-    target = '/etc/tinydns.conf'
-    try:
-        shutil.copyfile(filename, target)
-    except IOError as e:
-        print("Unable to copy file. %s" % e)
+    # filename = resource_filename(Requirement.parse("tinydns"), "etc/tinydns.conf")
+    # target = '/etc/tinydns.conf'
+    # try:
+    #     shutil.copyfile(filename, target)
+    # except IOError as e:
+    #     print("Unable to copy file. %s" % e)
     try:
         parser = argparse.ArgumentParser(description='Run some watchers.')
         parser.add_argument('-c', action='store_true',help="Run service command tinydns -c /etc/tinydns.conf")
-        parser.add_argument('-h',help="Requires configuration in /etc/tinydns.conf [gevent_dns]AF_INET = 2 SOCK_DGRAM = 2 port = 53")
+        parser.add_argument('-m', help="Requires configuration in /etc/tinydns.conf [gevent_dns]AF_INET = 2 SOCK_DGRAM = 2 port = 53")
         parser.add_argument('filename',help='Please enter a file name')
         args = parser.parse_args()
         # current_path = os.path.abspath('/etc')
@@ -56,20 +56,20 @@ def main():
             cf = ConfigParser.ConfigParser()
         except:
             cf = configparser.ConfigParser()
-        cf.read(con_cig)
         try:
+            cf.read(con_cig)
             AF_INET = cf.get('gevent_dns', 'AF_INET')
             SOCK_DGRAM = cf.get('gevent_dns', 'AF_INET')
             port = cf.get('gevent_dns', 'port')
-        except:
+        except Exception as e:
             AF_INET = 2
             SOCK_DGRAM = 2
             port = 53
         s = socket.socket(int(AF_INET), int(SOCK_DGRAM))
         s.bind(('', int(port)))
     except Exception as e:
-        if 'No section' in str(e):
-            print ('tinydns.conf does not exist, please confirm the file path or tinydns --help')
+        print (e)
+        print ('Switch root permissions run service command tinydns -c /etc/tinydns.conf')
     else:
         while True:
             data, peer = s.recvfrom(8192)

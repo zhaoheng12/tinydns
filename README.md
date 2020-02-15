@@ -6,8 +6,11 @@
 
 * 方法二： git clone https://github.com/zhaoheng12/tinydns.git
 
-* 配置文件可以自定义一些配置信息 cd tinydns  cp tinydns.conf /etc/tinydns.conf
-
+* 在 /etc 下 配置 tinydns.conf
+        [gevent_dns]
+        AF_INET = 2
+        SOCK_DGRAM = 2
+        port = 53
 * 运行命令：sudo tinydns -c  /etc/tinydns.conf
 
 * 测试： dig @127.0.0.1 google.com
