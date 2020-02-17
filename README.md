@@ -13,5 +13,6 @@
         port = 53
 * 运行命令：sudo tinydns -c  /etc/tinydns.conf
 
+
 * 测试： dig @127.0.0.1 google.com
 
